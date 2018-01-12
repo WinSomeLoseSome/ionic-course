@@ -1,8 +1,5 @@
 // Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 angular.module('songhop', ['ionic', 'songhop.controllers'])
 
 .run(function($ionicPlatform) {
@@ -15,7 +12,7 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-    
+
 
   });
 })
@@ -35,7 +32,17 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html',
-    controller: 'TabsCtrl'
+    controller: 'TabsCtrl',
+    resolve: {
+      populateSession: function(User) {
+        return User.checkSession();
+      }
+    },
+    onEnter: function($state, User){
+      User.checkSession().then(function(hasSession) {
+        if (!hasSession) $state.go('splash');
+      });
+    }
   })
 
   // Each tab has its own nav history stack:
@@ -59,8 +66,24 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
         }
       }
     })
+    .state('splash', {
+      url:'/',
+      templateUrl: 'templates/splash.html',
+      controller: 'SplashCtrl',
+      onEnter: function($state, User){
+        User.checkSession().then(function(hasSession){
+          if(hasSession) $state.go('tab.discover');
+        });
+      }
+    })
+    .state('upload', {
+      url:'/upload',
+      templateUrl:'templates/upload.html',
+      controller:'UploadCtrl',
+
+    })
   // If none of the above states are matched, use this as the fallback:
-  $urlRouterProvider.otherwise('/tab/discover');
+  $urlRouterProvider.otherwise('/');
 
 })
 

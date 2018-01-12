@@ -1,0 +1,54 @@
+<ion-view view-title="Upload" class="upload-page">
+
+<ion-content>
+
+  <div class="upload-form">
+    <div class="card">
+      <div class="list">
+
+        <div class="row responsive-md">
+          <div class="col col-10">
+        <label class="fileContainer button icon ion-document">
+          <br>
+          <span style="font-size: 14px" class="center">Choose File</span>
+          <input type="file"/>
+        </label>
+        </div>
+
+
+        <div class="col col-90" side="right">
+        <label class="item item-input">
+          <input type="text" placeholder="Enter the name of your beat">
+        </label>
+        </div>
+        </div>
+
+
+        <div class="list">
+          <label class="item-input item-select">
+            <div class="input-label">
+              Genre
+            </div>
+            <select>
+              <option value="HipHop">HipHop</option>
+              <option value="RnB">RnB</option>
+              <option value="Trap">Trap</option>
+            </select>
+          </label>
+        </div>
+
+
+
+        <div class="padding-left padding-right">
+          <button class="button button-block action-button" ng-click="uploadFile(beat)">
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</ion-content>
+</ion-view>
